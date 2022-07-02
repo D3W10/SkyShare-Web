@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="Partilha os seus ficheiros!">
+        <meta name="author" content="Daniel Nunes">
+        <meta name="keywords" content="SkyShare">
+        <link rel="stylesheet" href="./assets/style.css">
+        <link rel="icon" href="./assets/logo.png">
+        <title>SkyShare</title>
+    </head>
+    <body>
+        <div id="window">
+            <div id="loadBar"></div>
+            <div id="homePanel">
+                <header>
+                    <img src="./assets/logo.png">
+                    <h1>SkyShare</h1>
+                </header>
+                <p>Tudo a postos para começar a partilhar os seus ficheiros!</p>
+                <div>
+                    <button id="downloadButton">Transferir</button>
+                </div>
+            </div>
+            <div id="receivePanel">
+                <header>
+                    <img src="./assets/receive.png">
+                    <h1>Receber ficheiros</h1>
+                </header>
+                <p id="receiveText">O SkyShare deverá abrir dentro de momentos...</p>
+                <div>
+                    <button id="receiveButton" disabled>Transferir</button>
+                </div>
+            </div>
+            <div id="unsupportedPanel">
+                <header>
+                    <img src="./assets/logo.png">
+                    <h1>SkyShare</h1>
+                </header>
+                <p>Infelizmente este dispositivo não é compatível com o SkyShare, o SkyShare precisa de um dispositivo com o Windows 10 ou superior.</p>
+            </div>
+        </div>
+        <script src="./assets/index.js"></script>
+        <script src="./assets/home.js"></script>
+    </body>
+</html>
