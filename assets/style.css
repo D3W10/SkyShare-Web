@@ -882,6 +882,10 @@ icon {
         height: 50%;
     }
 
+    .blockOptions {
+        margin: 0;
+    }
+
     #window {
         width: 100%;
         height: 100%;
@@ -891,10 +895,17 @@ icon {
     #window > div {
         overflow: hidden;
     }
+}
 
-    #homeOptions {
-        margin: 0;
-    }
+/* #endregion */
+
+/* #region Font */
+
+@font-face {
+    font-family: montserrat;
+    src: url("./montserrat.ttf");
+    font-weight: 1 999;
+    font-style: normal;
 }
 
 /* #endregion */
