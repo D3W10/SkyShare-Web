@@ -141,24 +141,27 @@ window.sendFile = async (files, message) => {
 }
 
 window.receiveFile = async (code) => {
-    let apiResult = await fetch(apiUrl + "file/" + code + "/info", { method: "GET" });
-    let apiResultJSON = await apiResult.json();
-    let errorHandler = await window.apiErrorHandler(apiResultJSON.code, apiResult.status);
+    return new Promise(async (resolve) => {
+        let apiResult = await fetch(apiUrl + "file/" + code + "/info", { method: "GET" });
+        let apiResultJSON = await apiResult.json();
+        let errorHandler = await window.apiErrorHandler(apiResultJSON.code, apiResult.status);
 
-    if (errorHandler) {
-        if (apiResultJSON.value.message != null)
-            document.getElementById("transferMessage").innerText = apiResultJSON.value.message;
-        else
-            document.getElementById("transferMessage").innerHTML = "<i>Sem mensagem</i>";
+        if (errorHandler) {
+            if (apiResultJSON.value.message != null)
+                document.getElementById("transferMessage").innerText = apiResultJSON.value.message;
+            else
+                document.getElementById("transferMessage").innerHTML = "<i>Sem mensagem</i>";
 
-        if (apiResultJSON.value.sentBy != null)
-            document.getElementById("transferSentBy").innerText = apiResultJSON.value.sentBy;
-        else
-            document.getElementById("transferSentBy").innerHTML = "<i>Convidado</i>";
+            if (apiResultJSON.value.sentBy != null)
+                document.getElementById("transferSentBy").innerText = apiResultJSON.value.sentBy;
+            else
+                document.getElementById("transferSentBy").innerHTML = "<i>Convidado</i>";
 
-        document.getElementById("receiveInfo").removeAttribute("disabled");
-        window.open(apiUrl + "file/" + code, "_self")
-    }
+            document.getElementById("receiveInfo").removeAttribute("disabled");
+            window.open(apiUrl + "file/" + code, "_self");
+        }
+        resolve(errorHandler);
+    });
 }
 
 window.copyToClipboard = async (text) => {
