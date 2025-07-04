@@ -141,6 +141,8 @@
         "unknownDesc": "An unknown error occurred in the app or while trying to reach the server, this likely happened cause you're running an outdated version of SkyShare. Please make sure you're running the latest version and try again.",
         "down": "Server error",
         "downDesc": "Unable to reach the SkyShare server, please check your internet connection and try again.",
+        "offline": "You're offline",
+        "offlineDesc": "SkyShare could not reach the internet, make sure you're online and have a stable connection.",
         "tooManyFiles": "Limit exceeded",
         "tooManyFilesDesc": "The maximum number of files has been exceeded! You can only send a maximum of {{amount}} files per transfer.",
         "addingError": "Failed to add files",
