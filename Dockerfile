@@ -19,4 +19,4 @@ ENV VITE_ORG_NAME=skyshare
 RUN bun run build
 
 EXPOSE 4173
-ENTRYPOINT [ "bun", "run", "preview" ]
+ENTRYPOINT [ "bun", "run", "host" ]
