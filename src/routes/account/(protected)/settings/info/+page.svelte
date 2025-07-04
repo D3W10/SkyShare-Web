@@ -28,7 +28,7 @@
 
         if (shutdown) {
             logout();
-            goto("/account");
+            goto("/account/login");
         }
 
         setUnlock();

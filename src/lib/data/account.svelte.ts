@@ -34,11 +34,11 @@ const defaultState: AccountState = {
 export const account = $state<AccountState>(defaultState);
 
 export function getLogin() {
-    return `${info.api}/login?redirect_uri=skyshare://account/login/complete`;
+    return `${info.api}/login?redirect_uri=${window.location.origin}/account/login/complete`;
 }
 
 export function getSignup() {
-    return `${info.api}/signup?redirect_uri=skyshare://account/login/complete`;
+    return `${info.api}/signup?redirect_uri=${window.location.origin}/account/login/complete`;
 }
 
 export async function getToken() {
@@ -125,6 +125,27 @@ export async function editInfo(username: string, email: string) {
         account.email = email;
 
     return success;
+}
+
+export async function changePassword(oldPassword: string, newPassword: string) {
+    const formData = new FormData();
+    formData.append("userOwner", info.org);
+    formData.append("userName", account.username);
+    formData.append("oldPassword", oldPassword);
+    formData.append("newPassword", newPassword);
+
+    const changeReq = await fetch(info.auth + "/api/set-password", {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${await getToken()}`
+        },
+        body: formData
+    }), change = await changeReq.json();
+
+    return {
+        success: change.status === "ok",
+        message: change.msg
+    };
 }
 
 export async function deleteAccount() {

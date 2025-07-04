@@ -374,7 +374,7 @@ export class WebRTC {
             this.sendInChunks(JSON.stringify({
                 type: "details",
                 data: {
-                    files: this._details.files.map(f => ({ name: f.name, size: f.size, icon: f.icon })),
+                    files: this._details.files.map(f => ({ name: f.name, size: f.size, icon: "" })),
                     message: this._details.message,
                     user: account.id
                 }
@@ -383,7 +383,8 @@ export class WebRTC {
 
     async send() {
         for (const f of this._details.files) {
-            console.log("Sending file: " + f.path);
+            // TODO
+            /* console.log("Sending file: " + f.path);
 
             const query = new URLSearchParams({ path: f.path });
             const fileReq = await fetch("io://i?" + query.toString());
@@ -394,7 +395,7 @@ export class WebRTC {
                 continue;
             }
 
-            await this.sendInChunks(await fileReq.arrayBuffer(), this.fileChannel);
+            await this.sendInChunks(await fileReq.arrayBuffer(), this.fileChannel); */
         }
     }
 
@@ -431,7 +432,8 @@ export class WebRTC {
     }
 
     private writeFileChunk(file: ArrayBuffer) {
-        if (file.byteLength !== 0) {
+        // TODO
+        /* if (file.byteLength !== 0) {
             if (!this.fileOngoing) {
                 const path = this.savePath + "/" + this._details.files[this.fileIndex].name;
 
@@ -459,7 +461,7 @@ export class WebRTC {
             }
         }
         else
-            this.fileIndex++;
+            this.fileIndex++; */
     }
 
     private joinDataChunks(data: string) {
