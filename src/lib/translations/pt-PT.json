@@ -1,0 +1,167 @@
+{
+    "app": {
+        "login": "Iniciar Sessão",
+        "home": "Página Inicial",
+        "send": "Enviar",
+        "receive": "Receber"
+    },
+    "home": {
+        "morning_zero": "Bom dia!",
+        "morning": "Bom dia {{name}}!",
+        "afternoon_zero": "Boa tarde!",
+        "afternoon": "Boa tarde {{name}}!",
+        "evening_zero": "Boa noite!",
+        "evening": "Boa noite {{name}}!",
+        "send": "Enviar ficheiros",
+        "receive": "Receber ficheiros",
+        "download": "Transferir aplicação"
+    },
+    "send": {
+        "title": "Enviar ficheiros",
+        "chooseTitle": "Escolher ficheiros",
+        "chooseSubtitle": "Ou arraste para aqui!",
+        "chooseHoverTitle": "Quase lá!",
+        "chooseHoverSubtitle": "Largue-os aqui para adicionar",
+        "chooseAdd": "Addicionar",
+        "chooseFilter": "Todos os ficheiros",
+        "chooseAddFiles": "Adicionar ficheiros",
+        "message": "Mensagem",
+        "messagePlaceholder": "Escreva uma mensagem...",
+        "size": "Tamanho Total",
+        "quantity": "Quantidade Total",
+        "file_one": "ficheiro",
+        "file_other": "ficheiros",
+        "fileIcon": "Icone do ficheiro",
+        "send": "Enviar",
+        "waiting": {
+            "title": "Detalhes da transferência",
+            "copyCode": "Copiar código",
+            "copyLink": "Copiar link",
+            "waiting": "Em espera...",
+            "anonymous": "Desconhecido",
+            "connected": "Conectado a"
+        },
+        "transfer": {
+            "title": "A enviar",
+            "progress": "Progresso",
+            "estimated": "Estimado",
+            "speed": "Velocidade",
+            "hours": "horas",
+            "minutes": "minutos",
+            "seconds": "segundos"
+        },
+        "done": {
+            "title": "Ficheiros enviados",
+            "description": [
+                "Os ficheiros selecionados foram enviados com sucesso para",
+                "Pode começar uma nova transferência para enviar mais ficheiros ou regressar à página inicial."
+            ],
+            "finish": "Terminar"
+        }
+    },
+    "receive": {
+        "title": "Receber ficheiros",
+        "code": "Código da transferência",
+        "receive": "Receber",
+        "review": {
+            "obtainingInfo": "A obter as informações da transferência...",
+            "title": "Rever ficheiros",
+            "sentBy": "Enviado por",
+            "noMessage": "Sem mensagem"
+        },
+        "transfer": {
+            "title": "A receber"
+        },
+        "done": {
+            "title": "Ficheiros recebidos",
+            "description": [
+                "Os ficheiros foram recebidos com sucesso de",
+                "Pode abrir a pasta para visualizar os ficheiros ou regressar à página inicial."
+            ],
+            "open": "Abrir pasta"
+        }
+    },
+    "account": {
+        "login": {
+            "title" : "Iniciar Sessão",
+            "history": "Histórico de Transferências",
+            "historyDesc": "Todas as suas transferências utilizando a aplicação serão guardadas num histórico para fácil acesso e gestão",
+            "sync": "Sincronização",
+            "syncDesc": "O seu histórico de transferências será sincronizado por todos os dispositivos que utilizam a sua conta de forma a mantê-lo atualizado",
+            "identification": "Identificação no envio",
+            "identificationDesc": "Quando alguém receber ficheiros enviados por si, o seu nome será apresentado com a transferência (deve ser ativado nas definições da conta)",
+            "login": "Iniciar Sessão",
+            "signup": "Criar conta",
+            "complete": {
+                "title": "A iniciar sessão",
+                "loggingIn": "Está quase, estamos a iniciar a sua sessão...",
+                "welcome": "Bem-vindo"
+            }
+        },
+        "title": "Conta",
+        "notVerified": "Email não verificado!",
+        "settings": {
+            "title": "Definições de conta",
+            "info": "Informações",
+            "personalization": "Personalização",
+            "security": "Segurança",
+            "username": "Nome de utilizador",
+            "usernameDesc": "Alterar o nome de utilizador da conta",
+            "email": "Email",
+            "emailDesc": "Alterar o email da conta",
+            "delete": "Apagar Conta",
+            "deleteDesc": "Apagar a sua conta SkyShare",
+            "deleteButton": "Apagar",
+            "save": "Guardar",
+            "password": "Alterar palavra-passe",
+            "passwordDesc": "Alterar a palavra-passe da sua conta",
+            "passwordButton": "Alterar",
+            "oldPassword": "Palavra-passe antiga",
+            "newPassword": "Nova palavra-passe",
+            "confirmPassword": "Confirmar palavra-passe",
+            "about": "Sobre",
+            "since": "Membro desde"
+        },
+        "delete": {
+            "title": "Apagar Conta",
+            "features": "Funcionalidades da conta:",
+            "continue": "Continuar",
+            "confirm": {
+                "title": "A apagar conta",
+                "deleting": "A apagar a sua conta SkyShare, por favor aguarde..."
+            }
+        }
+    },
+    "dialog": {
+        "okay": "OK",
+        "cancel": "Cancelar",
+        "yes": "Sim",
+        "no": "Não",
+        "unknown": "Erro desconhecido",
+        "unknownDesc": "Um erro desconhecido ocorreu na aplicação ou ao tentar conectar ao servidor, o mesmo provavelmente aconteceu se estiver a utilizar uma versão desatualizada do SkyShare. Por favor verifique que está a utilizar a versão mais recente e tente novamente.",
+        "down": "Error do servidor",
+        "downDesc": "Não foi possível aceder ao servidor do SkyShare, verifique a sua ligação à internet e tente novamente.",
+        "tooManyFiles": "Limite excedido",
+        "tooManyFilesDesc": "A quantidade máxima de ficheiros foi excedida! Apenas pode enviar, no máximo, {{amount}} ficheiros por envio.",
+        "addingError": "Falha ao adicionar ficheiros",
+        "addingErrorDesc": "Houve um erro ao adicionar {{amount}} dos ficheiros selecionados, verifique se os mesmos ainda existem e se o seu nome é único.",
+        "invalidCode": "Código inválido",
+        "invalidCodeDesc": "Este código não está associado a nenhuma transferência em curso. Verifique-o e tente novamente.",
+        "senderDisconnected": "O remetente desconectou",
+        "senderDisconnectedDesc": "A pessoa que estava a enviar-te ficheiros foi desconectada.",
+        "loginError": "Erro ao iniciar sessão",
+        "loginErrorDesc": "Ocorreu um erro ao iniciar a sua sessão, por favor tente novamente.",
+        "logoutRequired": "A sua sessão será terminada",
+        "logoutRequiredDesc": "Para poder alterar o seu nome de utilizador ou palavra-passe, o SkyShare precisa de terminar a sessão da sua conta. Pretende continuar?",
+        "editError": "Erro ao guardar",
+        "editErrorDesc": "Um erro ocorreu ao tentar guardar algumas das suas alterações, por favor tente novamente.",
+        "deleteConfirm": "Último aviso!",
+        "deleteConfirmDesc": "Ao apagar a sua conta todo os seus dados serão apagados de forma irreversível! Apenas prossiga se tiver a certeza da sua decisão.",
+        "deleteSuccess": "Conta apagada",
+        "deleteSuccessDesc": "A sua conta foi apagada com sucesso. Esperamos vê-lo de novo em breve!",
+        "deleteError": "Falha ao apagar",
+        "deleteErrorDesc": "Ocorreu um erro ao tentar apagar a sua conta, por favor tente novamente.",
+        "logout": "Terminar sessão",
+        "logoutDesc": "Tem a certeza que pretende terminar sessão?"
+    }
+}
