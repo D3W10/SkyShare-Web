@@ -30,6 +30,7 @@ export class WebRTC {
     private dataChannelQueue: string[] = [];
     private fileOngoing = false;
     private fileIndex = 0;
+    private chunks: ArrayBuffer[] = [];
     private transferSize = 0;
     private transferStartTime = 0;
     private _transferDuration = $state(0);
@@ -383,19 +384,17 @@ export class WebRTC {
 
     async send() {
         for (const f of this._details.files) {
-            // TODO
-            /* console.log("Sending file: " + f.path);
-
-            const query = new URLSearchParams({ path: f.path });
-            const fileReq = await fetch("io://i?" + query.toString());
-            if (fileReq.status !== 200) {
-                console.error("File " + f.path + " not found, skipping...");
-
+            console.log("Sending file: " + f.name);
+            
+            try {
+                const arrayBuffer = await f.arrayBuffer();
+                await this.sendInChunks(arrayBuffer, this.fileChannel);
+            }
+            catch (error) {
+                console.error("Error reading file " + f.name + ", skipping...", error);
                 this.fileChannel?.send(new ArrayBuffer(0));
                 continue;
             }
-
-            await this.sendInChunks(await fileReq.arrayBuffer(), this.fileChannel); */
         }
     }
 
@@ -432,22 +431,28 @@ export class WebRTC {
     }
 
     private writeFileChunk(file: ArrayBuffer) {
-        // TODO
-        /* if (file.byteLength !== 0) {
+        if (file.byteLength !== 0) {
             if (!this.fileOngoing) {
-                const path = this.savePath + "/" + this._details.files[this.fileIndex].name;
-
-                console.log("[RTC] Initiated file stream for ", path);
-                app.createFileStream(path);
+                console.log("[RTC] Initiated file stream for", this._details.files[this.fileIndex].name);
                 this.fileOngoing = true;
             }
 
-            app.writeChunk(file);
+            this.chunks.push(file);
         }
         else if (this.fileOngoing) {
             console.log("[RTC] Closing file stream");
 
-            app.closeFileStream();
+            const url = URL.createObjectURL(new Blob(this.chunks, { type: "application/octet-stream" }));
+            const a = document.createElement("a");
+
+            a.href = url;
+            a.download = this._details.files[this.fileIndex].name;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            URL.revokeObjectURL(url);
+            this.chunks = [];
             this.fileOngoing = false;
             this.fileIndex++;
 
@@ -461,7 +466,7 @@ export class WebRTC {
             }
         }
         else
-            this.fileIndex++; */
+            this.fileIndex++;
     }
 
     private joinDataChunks(data: string) {
