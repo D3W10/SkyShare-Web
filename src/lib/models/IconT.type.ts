@@ -6,6 +6,7 @@ export type IconT =
     "brush" |
     "checkmark" |
     "copy" |
+    "delete" |
     "download" |
     "file" |
     "history" |
@@ -20,5 +21,6 @@ export type IconT =
     "send" |
     "stopwatch" |
     "sync" |
+    "undo" |
     "upload" |
     "warning";

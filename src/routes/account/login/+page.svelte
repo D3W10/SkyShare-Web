@@ -26,8 +26,8 @@
     </div>
     <div class="flex flex-col justify-center items-center flex-1">
         <div class="w-40 space-y-3">
-            <Button class="w-full" onclick={() => window.open(getLogin())}>{i18n.t("account.login.login")}</Button>
-            <Button class="w-full" type="secondary" onclick={() => window.open(getSignup())}>{i18n.t("account.login.signup")}</Button>
+            <Button class="w-full" onclick={() => window.open(getLogin(), "_self")}>{i18n.t("account.login.login")}</Button>
+            <Button class="w-full" type="secondary" onclick={() => window.open(getSignup(), "_self")}>{i18n.t("account.login.signup")}</Button>
         </div>
     </div>
 </PageLayout>

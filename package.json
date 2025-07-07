@@ -29,8 +29,7 @@
     "homepage": "http://20.86.131.181",
     "dependencies": {
         "@sveltejs/vite-plugin-svelte": "^5.0.3",
-        "i18next": "^24.2.2",
-        "mime": "^4.0.7"
+        "i18next": "^24.2.2"
     },
     "devDependencies": {
         "@sveltejs/adapter-node": "^5.2.12",

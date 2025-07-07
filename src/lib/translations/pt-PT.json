@@ -63,6 +63,7 @@
         "title": "Receber ficheiros",
         "code": "Código da transferência",
         "receive": "Receber",
+        "receiveInApp": "Receber na app",
         "review": {
             "obtainingInfo": "A obter as informações da transferência...",
             "title": "Rever ficheiros",
@@ -100,6 +101,14 @@
         },
         "title": "Conta",
         "notVerified": "Email não verificado!",
+        "viewHistory": "Ver todo o histórico",
+        "history": {
+            "title": "Histórico",
+            "empty": "O seu histórico está vazio",
+            "from": "De",
+            "to": "Para",
+            "receivedBy": "Recebido por"
+        },
         "settings": {
             "title": "Definições de conta",
             "info": "Informações",
@@ -113,6 +122,7 @@
             "deleteDesc": "Apagar a sua conta SkyShare",
             "deleteButton": "Apagar",
             "save": "Guardar",
+            "choosePicture": "Escolher foto",
             "password": "Alterar palavra-passe",
             "passwordDesc": "Alterar a palavra-passe da sua conta",
             "passwordButton": "Alterar",
@@ -154,7 +164,7 @@
         "loginError": "Erro ao iniciar sessão",
         "loginErrorDesc": "Ocorreu um erro ao iniciar a sua sessão, por favor tente novamente.",
         "logoutRequired": "A sua sessão será terminada",
-        "logoutRequiredDesc": "Para poder alterar o seu nome de utilizador ou palavra-passe, o SkyShare precisa de terminar a sessão da sua conta. Pretende continuar?",
+        "logoutRequiredDesc": "Para poder alterar o seu nome de utilizador, o SkyShare precisa de terminar a sessão da sua conta. Pretende continuar?",
         "editError": "Erro ao guardar",
         "editErrorDesc": "Um erro ocorreu ao tentar guardar algumas das suas alterações, por favor tente novamente.",
         "passwordError": "Erro ao alterar palavra-passe",

@@ -63,6 +63,7 @@
         "title": "Receive files",
         "code": "Transfer Code",
         "receive": "Receive",
+        "receiveInApp": "Receive in app",
         "review": {
             "obtainingInfo": "Obtaining transfer information...",
             "title": "Review files",
@@ -100,6 +101,14 @@
         },
         "title": "Account",
         "notVerified": "Email not verified!",
+        "viewHistory": "View all history",
+        "history": {
+            "title": "History",
+            "empty": "Your history is empty",
+            "from": "From",
+            "to": "To",
+            "receivedBy": "Received by"
+        },
         "settings": {
             "title": "Account settings",
             "info": "Information",
@@ -113,6 +122,7 @@
             "deleteDesc": "Delete your SkyShare account",
             "deleteButton": "Delete",
             "save": "Save",
+            "choosePicture": "Choose picture",
             "password": "Change password",
             "passwordDesc": "Change your account password",
             "passwordButton": "Change",
@@ -154,7 +164,7 @@
         "loginError": "Login error",
         "loginErrorDesc": "An error occurred while logging you in, please try again.",
         "logoutRequired": "Logout required",
-        "logoutRequiredDesc": "In order to change your username or password, SkyShare has to log you out of your account. Do you want to proceed?",
+        "logoutRequiredDesc": "In order to change your username, SkyShare has to log you out of your account. Do you want to proceed?",
         "editError": "Failed to save",
         "editErrorDesc": "An error occurred while saving some of your changes, please try again.",
         "passwordError": "Failed to change password",

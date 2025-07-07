@@ -22,7 +22,7 @@ export const app = $state({
             input.click();
         });
     },
-    apiCall: async <T extends { [key: string]: unknown; }>(endpoint: string, { method, params, body }: { method?: string, params?: string, body?: object } = {}, error = true): Promise<["", T] | [ErrorT, null]> => {
+    apiCall: async <T>(endpoint: string, { method = "GET", params, headers, body }: { method?: string, params?: string, headers?: HeadersInit, body?: object } = {}, error = true): Promise<["", T] | [ErrorT, null]> => {
         try {
             if (!navigator.onLine) {
                 setError("offline");
@@ -30,10 +30,16 @@ export const app = $state({
             }
 
             console.log("[API] " + endpoint + (params ? "?" + params : ""));
-            method = method ?? "GET";
+
+            const sendHeaders: HeadersInit = { "Content-Type": "application/json" };
+            if (body && headers) {
+                Object.assign(sendHeaders, headers);
+                headers = sendHeaders;
+            }
 
             const apiResult = await fetch(info.api + endpoint + (params ? "?" + params : ""), {
                 method,
+                headers,
                 body: body ? JSON.stringify(body) : undefined
             });
 
@@ -54,6 +60,24 @@ export const app = $state({
                 setError("unknown");
 
             return ["unknown", null];
+        }
+    },
+    authCall: async (endpoint: string, { method = "GET", params, headers, body }: { method?: string, params?: string, headers?: HeadersInit, body?: object } = {}): Promise<[boolean, any]> => {
+        try {
+            console.log("[AUTH] " + endpoint + (params ? "?" + params : ""));
+    
+            const authResult = await fetch(info.auth + endpoint + (params ? "?" + params : ""), {
+                method,
+                headers,
+                body: body ? JSON.stringify(body) : undefined,
+            }), json = await authResult.json();
+    
+            return [json.status !== "ok", json];
+        }
+        catch (err) {
+            console.error(err instanceof Error ? err.message : err);
+    
+            return [true, null];
         }
     },
     formatFileSize: (size: number, decimals = 2) => {
@@ -80,5 +104,11 @@ export const app = $state({
             return `${m} ${mStr}`;
         else
             return `${s} ${sStr}`;
+    },
+    saveCredentials: (refreshToken: string) => {
+        localStorage.setItem("refreshToken", refreshToken);
+    },
+    logout: () => {
+        localStorage.removeItem("refreshToken");
     }
 });

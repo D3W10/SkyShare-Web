@@ -7,7 +7,7 @@ import type { RTCCallbackT } from "./RTCCallbackT.type";
 
 type Direction = "sender" | "receiver";
 type Credentials = { username: string, password: string };
-type PeerData = { username: string, picture: string };
+type PeerData = { id: string, username: string, picture: string };
 
 const MAX_BUFFERED_AMOUNT = 8388608;
 
@@ -34,7 +34,7 @@ export class WebRTC {
     private transferSize = 0;
     private transferStartTime = 0;
     private _transferDuration = $state(0);
-    private _remotePeerData: PeerData = $state({ username: "", picture: "" });
+    private _remotePeerData: PeerData = $state({ id: "", username: "", picture: "" });
 
     constructor(credentials: Credentials) {
         this.rtcConfig = {
@@ -57,7 +57,7 @@ export class WebRTC {
         const [error, data] = await app.apiCall<Credentials>("/credentials", {}, false);
 
         if (error)
-            throw new AppError("down");
+            throw new AppError(error === "offline" ? "offline" : "down");
         
         return data;
     }
@@ -455,18 +455,23 @@ export class WebRTC {
             this.chunks = [];
             this.fileOngoing = false;
             this.fileIndex++;
-
-            if (this.fileIndex === this._details.files.length) {
-                this.events.beforeFinish?.();
-                this.signalEnd();
-
-                this.sendInChunks(JSON.stringify({
-                    type: "finish"
-                }), this.dataChannel);
-            }
+            this.verifyEnd();
         }
-        else
+        else {
             this.fileIndex++;
+            this.verifyEnd();
+        }
+    }
+
+    private verifyEnd() {
+        if (this.fileIndex === this._details.files.length) {
+            this.events.beforeFinish?.();
+            this.signalEnd();
+
+            this.sendInChunks(JSON.stringify({
+                type: "finish"
+            }), this.dataChannel);
+        }
     }
 
     private joinDataChunks(data: string) {

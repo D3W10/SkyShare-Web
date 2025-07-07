@@ -1,5 +1,6 @@
 import { app } from "./app.svelte";
 import { info } from "./info.svelte";
+import type { HistoryEntry } from "$lib/models/HistoryEntry.interface";
 
 interface AccountState {
     loggedIn: boolean;
@@ -14,6 +15,8 @@ interface AccountState {
         refreshToken: string;
         expiresOn: number;
     };
+    historyDate: Date;
+    history: HistoryEntry[];
 }
 
 const defaultState: AccountState = {
@@ -28,21 +31,23 @@ const defaultState: AccountState = {
         accessToken: "",
         refreshToken: "",
         expiresOn: 0
-    }
+    },
+    historyDate: new Date(0),
+    history: []
 };
 
 export const account = $state<AccountState>(defaultState);
 
 export function getLogin() {
-    return `${info.api}/login?redirect_uri=${window.location.origin}/account/login/complete`;
+    return `${info.api}/login?redirect_uri=${encodeURIComponent(window.location.origin + "/account/login/complete")}`;
 }
 
 export function getSignup() {
-    return `${info.api}/signup?redirect_uri=${window.location.origin}/account/login/complete`;
+    return `${info.api}/signup?redirect_uri=${encodeURIComponent(window.location.origin + "/account/login/complete")}`;
 }
 
 export async function getToken() {
-    if (Date.now() >= account.auth.expiresOn) {
+    if (!account.auth.accessToken || Date.now() >= account.auth.expiresOn) {
         const [error, data] = await app.apiCall<{ access_token: string, refresh_token: string, expires_on: number }>("/refresh", {
             method: "GET",
             params: (new URLSearchParams({
@@ -59,7 +64,7 @@ export async function getToken() {
         account.auth.refreshToken = data.refresh_token;
         account.auth.expiresOn = data.expires_on;
 
-        /* app.saveCredentials(account.auth.accessToken, account.auth.refreshToken, account.auth.expiresOn); */
+        app.saveCredentials(account.auth.refreshToken);
 
         return account.auth.accessToken;
     }
@@ -70,22 +75,32 @@ export async function getToken() {
 export async function login(accessToken: string, refreshToken: string, expiresOn: number) {
     console.log("Logging in");
 
-    /* app.saveCredentials(accessToken, refreshToken, expiresOn); */
-    return loginComplete(accessToken, refreshToken, expiresOn);
-}
-
-async function loginComplete(accessToken: string, refreshToken: string, expiresOn: number) {
+    app.saveCredentials(refreshToken);
     account.auth.accessToken = accessToken;
-    account.auth.refreshToken = refreshToken;
     account.auth.expiresOn = expiresOn;
 
-    try {
-        const userInfoReq = await fetch(info.auth + "/api/get-account", {
-            headers: {
-                Authorization: `Bearer ${await getToken()}`
-            }
-        }), userInfo = await userInfoReq.json();
+    return loginComplete(refreshToken);
+}
 
+export async function loginStored() {
+    const refreshToken = localStorage.getItem("refreshToken");
+
+    if (refreshToken)
+        return loginComplete(refreshToken);
+    else
+        return false;
+}
+
+async function loginComplete(refreshToken: string) {
+    account.auth.refreshToken = refreshToken;
+
+    const [error, userInfo] = await app.authCall("/api/get-account", {
+        headers: {
+            Authorization: `Bearer ${await getToken()}`
+        }
+    });
+
+    if (!error) {
         account.loggedIn = true;
         account.id = userInfo.data.id;
         account.username = userInfo.data.name;
@@ -95,13 +110,9 @@ async function loginComplete(accessToken: string, refreshToken: string, expiresO
         account.createdAt = new Date(userInfo.data.createdTime);
 
         console.log("Login successful!");
+    }
 
-        return true;
-    }
-    catch {
-        /* TODO: Handle error */
-        return false;
-    }
+    return !error;
 }
 
 export async function editInfo(username: string, email: string) {
@@ -127,6 +138,59 @@ export async function editInfo(username: string, email: string) {
     return success;
 }
 
+export async function changePicture(picture: string) {
+    const [error0, userInfo] = await app.authCall("/api/get-account", {
+        headers: {
+            Authorization: `Bearer ${await getToken()}`
+        }
+    });
+
+    if (error0)
+        return false;
+
+    if (picture) {
+        const extension = /\.\w+$/g.exec(picture);
+        const query = new URLSearchParams({
+            owner: info.org,
+            user: account.id,
+            application: userInfo.data.signupApplication,
+            fullFilePath: account.username.toLowerCase().replace(/[^a-zA-Z0-9]+/g, "_") + (extension && extension.length ? extension[0] : ".jpg")
+        });
+
+        const formData = new FormData();
+        formData.append("file", await (await fetch(picture)).blob());
+        URL.revokeObjectURL(picture);
+
+        const picUploadReq = await fetch(info.auth + "/api/upload-resource?" + query.toString(), {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${await getToken()}`
+            },
+            body: formData
+        }), picUpload = await picUploadReq.json();
+
+        if (picUpload.status !== "ok")
+            return false;
+
+        picture = picUpload.data;
+    }
+
+    userInfo.data.avatar = picture;
+
+    const [error1] = await app.authCall("/api/update-user", {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${await getToken()}`
+        },
+        body: userInfo.data
+    });
+
+    if (!error1)
+        account.picture = picture;
+
+    return !error1;
+}
+
 export async function changePassword(oldPassword: string, newPassword: string) {
     const formData = new FormData();
     formData.append("userOwner", info.org);
@@ -148,6 +212,43 @@ export async function changePassword(oldPassword: string, newPassword: string) {
     };
 }
 
+export async function getHistory() {
+    if (Date.now() > account.historyDate.getTime() + 300000) {
+        const [error, history] = await app.apiCall<any[]>("/history", {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${await getToken()}`
+            }
+        });
+
+        if (!error) {
+            account.historyDate = new Date();
+            account.history = history.map(e => ({ ...e, createdAt: new Date(e.createdAt) }) as HistoryEntry);
+        }
+
+        return !error;        
+    }
+
+    return true;
+}
+
+export async function pushHistory(files: File[], message: string | null, receiver: string | null) {
+    const [error] = await app.apiCall("/history", {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${await getToken()}`
+        },
+        body: {
+            files: files.map(f => ({ name: f.name, size: f.size })),
+            message,
+            sender: account.loggedIn ? account.id : null,
+            receiver
+        }
+    });
+
+    return !error;
+}
+
 export async function deleteAccount() {
     const deleteReq = await fetch(info.auth + "/api/delete-user", {
         method: "POST",
@@ -166,7 +267,7 @@ export async function deleteAccount() {
 }
 
 export function logout() {
-    /* app.logout(); */
+    app.logout();
 
     for (const key of Object.keys(account) as (keyof AccountState)[])
         (account as any)[key] = defaultState[key];
