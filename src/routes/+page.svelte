@@ -33,5 +33,8 @@
             <OneAction icon="download" href="https://github.com/D3W10/SkyShare/releases">{i18n.t("home.download")}</OneAction>
         </div>
     </div>
-    <div class="w-1/2 flex justify-center items-center"></div>
+    <div class="w-1/2 px-4 flex justify-center items-center">
+        <img src="/heroLight.svg" class="w-full block dark:hidden" alt="SkyShare Hero" />
+        <img src="/heroDark.svg" class="w-full hidden dark:block" alt="SkyShare Hero" />
+    </div>
 </PageLayout>
