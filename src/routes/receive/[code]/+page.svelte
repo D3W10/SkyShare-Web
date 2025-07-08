@@ -50,6 +50,7 @@
         connection.c.setListener("fileOpen", () => ready = true);
 
         connection.c.setListener("end", () => {
+            connection.c?.disconnect();
             setUnlock();
             setError("senderDisconnected");
             goto("/receive");
