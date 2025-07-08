@@ -19,6 +19,7 @@ export type IconT =
     "remove" |
     "reset" |
     "send" |
+    "sidebar" |
     "stopwatch" |
     "sync" |
     "undo" |

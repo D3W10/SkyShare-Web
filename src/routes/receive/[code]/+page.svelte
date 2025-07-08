@@ -82,8 +82,8 @@
     {#if !connected}
         <p class="size-full flex justify-center items-center text-lg font-semibold" in:transitions.pageIn out:transitions.pageOut>{i18n.t("receive.review.obtainingInfo")}</p>
     {:else}
-        <div class="size-full flex gap-x-6" in:transitions.pageIn out:transitions.pageOut>
-            <div class={twMerge(boxStyles.pane, "w-64 h-full p-2 flex flex-col gap-y-2 rounded-2xl overflow-y-auto")}>
+        <div class="size-full flex flex-col md:flex-row max-md:gap-y-6 md:gap-x-6" in:transitions.pageIn out:transitions.pageOut>
+            <div class={twMerge(boxStyles.pane, "w-full h-96 md:w-64 md:h-full p-2 flex flex-col gap-y-2 rounded-2xl overflow-y-auto")}>
                 {#each files as file (file.name)}
                     <div class={twMerge(boxStyles.box, "px-2 items-center")}>
                         <Icon name="file" class="h-6 aspect-square" />
@@ -94,7 +94,7 @@
                     </div>
                 {/each}
             </div>
-            <div class="h-full px-4 flex flex-col items-center flex-1">
+            <div class="h-full md:px-4 flex flex-col items-center flex-1">
                 <div class="size-full">
                     <div class="flex gap-x-6">
                         <h3 class="font-semibold">{i18n.t("receive.review.sentBy")}</h3>
@@ -128,7 +128,7 @@
                 </div>
                 <div class="flex gap-x-2">
                     <Button class="w-30" disabled={!ready} onclick={startReceive}>{i18n.t("receive.receive")}</Button>
-                    <Link type="secondary" href="skyshare://receive/code?code={code}" target="_self">{i18n.t("receive.receiveInApp")}</Link>
+                    <Link class="hidden md:block" type="secondary" href="skyshare://receive/code?code={code}" target="_self">{i18n.t("receive.receiveInApp")}</Link>
                 </div>
             </div>
         </div>

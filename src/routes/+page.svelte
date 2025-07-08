@@ -21,8 +21,8 @@
     setInterval(updateGreeting, 60000);
 </script>
 
-<PageLayout title={i18n.t(greetingKey, { count: !account.loggedIn ? 0 : 1, name: account.username })} class="px-14 pb-8 flex gap-x-8">
-    <div class="w-1/2 pl-16 flex flex-col justify-center gap-y-8">
+<PageLayout title={i18n.t(greetingKey, { count: !account.loggedIn ? 0 : 1, name: account.username })} class="md:px-14 pb-8 flex flex-col md:flex-row justify-center items-center max-md:gap-y-12 md:gap-x-8">
+    <div class="w-1/2 md:pl-16 flex flex-col justify-center gap-y-8">
         <div class="flex items-center gap-x-4">
             <img class="h-10" src="/logo.svg" alt="SkyShare Logo" />
             <h3 class="text-2xl font-semibold">SkyShare</h3>

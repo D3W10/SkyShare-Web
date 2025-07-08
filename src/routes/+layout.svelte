@@ -67,9 +67,9 @@
     });
 </script>
 
-<div class="w-260 h-150 flex gap-x-4">
+<div class="size-full lg:w-260 lg:h-150 flex gap-x-4">
     <Sidebar />
-    <main class="h-full flex flex-1 relative text-slate-950 dark:text-slate-100 bg-slate-50/60 dark:bg-slate-900/90 rounded-2xl ring-1 ring-slate-400/10 dark:ring-slate-50/10 shadow-sm overflow-hidden">
+    <main class="h-full flex flex-1 relative text-slate-950 dark:text-slate-100 bg-slate-50/60 dark:bg-slate-900/90 lg:rounded-2xl ring-1 ring-slate-400/10 dark:ring-slate-50/10 shadow-sm overflow-hidden">
         {#if disable.loading}
             <div class="absolute top-0 left-0 right-0" transition:fade={{ duration: 200 }}>
                 <ProgressBar class="rounded-none" indeterminate />

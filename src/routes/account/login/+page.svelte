@@ -9,8 +9,8 @@
     let historyDialog = $state(false), syncDialog = $state(false), identificationDialog = $state(false);
 </script>
 
-<PageLayout title={i18n.t("account.login.title")} class="px-14 flex gap-x-6">
-    <div class="pl-16 flex flex-col justify-center flex-1 gap-y-8">
+<PageLayout title={i18n.t("account.login.title")} class="md:px-14 flex flex-col md:flex-row justify-center items-center gap-x-6">
+    <div class="md:pl-16 flex flex-col justify-center flex-1 gap-y-8">
         <div class="flex items-center gap-x-4">
             <img class="h-10" src="/logo.svg" alt="SkyShare Logo" />
             <div>

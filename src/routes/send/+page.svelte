@@ -70,8 +70,8 @@
     }
 </script>
 
-<PageLayout title={i18n.t("send.title")} class="flex gap-x-6">
-    <div class={twMerge(boxStyles.pane, "w-64 h-full p-0 grid relative rounded-2xl overflow-hidden z-0 *:col-[1] *:row-[1] before:absolute before:-top-8 before:-bottom-8 before:left-1/2 before:bg-rainbow-conic before:opacity-0 before:animate-rotate before:-translate-x-1/2 before:aspect-square before:-z-2 after:absolute after:bg-slate-200 dark:after:bg-slate-950 after:-z-1 after:transition-all after:duration-200", disable.d ? "*:opacity-50" : "", !hovering ? "before:transition-opacity before:duration-0 before:delay-200 after:inset-0 after:rounded-2xl" : "before:opacity-100 after:inset-2 after:rounded-lg")} role="none" ondragenter={() => hovering++} ondragleave={() => hovering--} ondragover={e => e.preventDefault()} ondrop={e => { e.preventDefault(); parseFiles("drop", e); }}>
+<PageLayout title={i18n.t("send.title")} class="flex flex-col md:flex-row max-md:gap-y-6 md:gap-x-6">
+    <div class={twMerge(boxStyles.pane, "w-full h-96 md:w-64 md:h-full p-0 grid relative rounded-2xl overflow-hidden z-0 *:col-[1] *:row-[1] before:absolute before:-top-8 before:-bottom-8 before:left-1/2 before:bg-rainbow-conic before:opacity-0 before:animate-rotate before:-translate-x-1/2 before:aspect-square before:-z-2 after:absolute after:bg-slate-200 dark:after:bg-slate-950 after:-z-1 after:transition-all after:duration-200", disable.d ? "*:opacity-50" : "", !hovering ? "before:transition-opacity before:duration-0 before:delay-200 after:inset-0 after:rounded-2xl" : "before:opacity-100 after:inset-2 after:rounded-lg")} role="none" ondragenter={() => hovering++} ondragleave={() => hovering--} ondragover={e => e.preventDefault()} ondrop={e => { e.preventDefault(); parseFiles("drop", e); }}>
         {#if files.length === 0}
             <div class="size-full transition-opacity duration-200" in:transitions.pageIn out:transitions.pageOut>
                 <Button type="invisible" class="size-full flex flex-col justify-center items-center enabled:cursor-pointer z-1 *:pointer-events-none" onclick={() => parseFiles("select")}>
@@ -111,7 +111,7 @@
             </div>
         {/if}
     </div>
-    <div class="h-full px-4 flex flex-col items-center flex-1">
+    <div class="h-full md:px-4 flex flex-col items-center flex-1">
         <div class="size-full">
             <h3 class="mb-2 font-semibold">{i18n.t("send.message")}</h3>
             <TextArea class="w-full rounded-xl resize-none" bind:value={message} placeholder={i18n.t("send.messagePlaceholder")} rows={5} maxlength={MAX_MESSAGE} />
