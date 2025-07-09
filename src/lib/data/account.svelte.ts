@@ -39,7 +39,7 @@ const defaultState: AccountState = {
 export const account = $state<AccountState>(defaultState);
 
 export function getLogin() {
-    return `${info.api}/login?redirect_uri=${encodeURIComponent(window.location.origin + "/account/login/complete")}`;
+    return `${info.api}/login?redirect_uri=${encodeURI(window.location.origin + "/account/login/complete")}`;
 }
 
 export function getSignup() {
@@ -115,27 +115,26 @@ async function loginComplete(refreshToken: string) {
     return !error;
 }
 
-export async function editInfo(username: string, email: string) {
-    const editReq = await fetch(info.auth + "/api/update-user", {
-        method: "POST",
+export async function editInfo(username?: string, email?: string) {
+    const body: { [key: string]: any } = {};
+
+    if (username)
+        body.username = username;
+    if (email)
+        body.email = email;
+
+    const [error, data] = await app.apiCall<{ username: string, email: string }>("/user/info", {
+        method: "PUT",
         headers: {
             Authorization: `Bearer ${await getToken()}`
         },
-        body: JSON.stringify({
-            id: account.id,
-            name: username,
-            displayName: username,
-            email,
-            avatar: account.picture,
-            owner: info.org
-        })
-    }), edit = await editReq.json();
+        body
+    });
 
-    const success = edit.status === "ok";
-    if (success)
-        account.email = email;
+    if (!error)
+        account.email = data.email;
 
-    return success;
+    return !error;
 }
 
 export async function changePicture(picture: string) {
