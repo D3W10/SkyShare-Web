@@ -7,6 +7,7 @@
     import { changeLanguage, i18n } from "$lib/data/i18n.svelte";
     import { disable } from "$lib/data/disable.svelte";
     import { error, hideError } from "$lib/data/error.svelte";
+    import { loginStored } from "$lib/data/account.svelte";
     import Sidebar from "$lib/components/Sidebar.svelte";
     import ProgressBar from "$lib/components/ProgressBar.svelte";
     import Dialog from "$lib/components/Dialog.svelte";
@@ -60,6 +61,7 @@
 
         window.goto = goto;
         changeLanguage(navigator.language);
+        loginStored();
 
         media.addEventListener("change", e => setTheme(e.matches ? "dark" : "light"));
         setTheme(media.matches ? "dark" : "light", instantChange);
