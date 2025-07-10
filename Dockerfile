@@ -13,7 +13,7 @@ COPY --from=install /temp/dev/node_modules node_modules
 COPY . .
 
 ENV VITE_API_URL=https://skyshare.pt/api/v1
-ENV VITE_AUTH_URL=http://skyshare.pt:8000
+ENV VITE_AUTH_URL=https://auth.skyshare.pt
 ENV VITE_ORG_NAME=skyshare
 
 RUN bun run build
