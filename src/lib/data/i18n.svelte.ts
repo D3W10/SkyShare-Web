@@ -3,10 +3,14 @@ import i18next from "i18next";
 import enUS from "../translations/en-US.json";
 import ptPT from "../translations/pt-PT.json";
 
+export const languages = ["en", "en-US", "pt", "pt-PT"];
+
 i18next.init({
     lng: "en-US",
     resources: {
+        "en": { translation: enUS },
         "en-US": { translation: enUS },
+        "pt": { translation: ptPT },
         "pt-PT": { translation: ptPT }
     }
 });

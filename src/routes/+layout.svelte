@@ -4,7 +4,7 @@
     import { goto } from "$app/navigation";
     import { page } from "$app/state";
     import { base } from "$app/paths";
-    import { changeLanguage, i18n } from "$lib/data/i18n.svelte";
+    import { changeLanguage, i18n, languages } from "$lib/data/i18n.svelte";
     import { disable } from "$lib/data/disable.svelte";
     import { error, hideError } from "$lib/data/error.svelte";
     import { loginStored } from "$lib/data/account.svelte";
@@ -60,7 +60,17 @@
         let media = window.matchMedia("(prefers-color-scheme: dark)");
 
         window.goto = goto;
-        changeLanguage(navigator.language);
+
+        if (languages.includes(navigator.language))
+            changeLanguage(navigator.language);
+        else {
+            const lang = navigator.language.split("-")[0];
+            if (languages.includes(lang))
+                changeLanguage(lang);
+            else
+                changeLanguage("en");
+        }
+
         loginStored();
 
         media.addEventListener("change", e => setTheme(e.matches ? "dark" : "light"));
